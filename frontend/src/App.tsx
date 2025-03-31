@@ -1,19 +1,18 @@
 // src/App.tsx
 import React, { useState } from 'react';
+import './App.css';
 
 const App: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [query, setQuery] = useState('');
   const [responseText, setResponseText] = useState('');
 
-  // Capture file selection
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setFile(e.target.files[0]);
     }
   };
 
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!file || !query) {
@@ -26,7 +25,6 @@ const App: React.FC = () => {
     formData.append('query', query);
 
     try {
-      // API request; the proxy in vite.config.ts forwards this to your backend
       const res = await fetch('/upload-and-query/', {
         method: 'POST',
         body: formData,
@@ -40,30 +38,44 @@ const App: React.FC = () => {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>PDF Study Assistant</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Upload PDF:</label>
-          <input type="file" accept="application/pdf" onChange={handleFileChange} />
+    <div id="root">
+      <header className="header">
+        <h1>PDF Study Assistant</h1>
+      </header>
+      <main>
+        <div className="card">
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="fileUpload">Upload PDF:</label>
+              <input
+                id="fileUpload"
+                type="file"
+                accept="application/pdf"
+                onChange={handleFileChange}
+                className="input-field"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="queryInput">Query:</label>
+              <input
+                id="queryInput"
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Enter your query..."
+                className="input-field"
+              />
+            </div>
+            <button type="submit" className="submit-button">Submit</button>
+          </form>
+          {responseText && (
+            <div className="response-section">
+              <h2>Response:</h2>
+              <p>{responseText}</p>
+            </div>
+          )}
         </div>
-        <div style={{ marginTop: '10px' }}>
-          <label>Query:</label>
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Enter your query..."
-          />
-        </div>
-        <button type="submit" style={{ marginTop: '10px' }}>Submit</button>
-      </form>
-      {responseText && (
-        <div style={{ marginTop: '20px' }}>
-          <h2>Response:</h2>
-          <p>{responseText}</p>
-        </div>
-      )}
+      </main>
     </div>
   );
 };

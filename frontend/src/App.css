@@ -40,3 +40,52 @@
 .read-the-docs {
   color: #888;
 }
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.card {
+  margin: 0 auto;
+  padding: 2em;
+  max-width: 600px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: transparent;
+  border-radius: 8px;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.input-field {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #1a1a1a;
+}
+
+.submit-button {
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  border: none;
+  background-color: #1a1a1a;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+
+.submit-button:hover {
+  background-color: #646cff;
+}
+
+.response-section {
+  margin-top: 2rem;
+  text-align: left;
+}
